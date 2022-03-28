@@ -13,7 +13,9 @@ class EmptyListWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 20.0),
       child: Column(
         children: [
-          const CustomTextField(),
+          const CustomTextField(
+            isEditing: false,
+          ),
           const SizedBox(
             height: 35,
           ),

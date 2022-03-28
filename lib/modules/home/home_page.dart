@@ -116,9 +116,11 @@ class _HomeViewState extends State<HomeView> {
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 20.0),
         child: ListView(
           children: [
-            const CustomTextField(),
+            const CustomTextField(
+              isEditing: false,
+            ),
             const SizedBox(
-              height: 35,
+              height: 20,
             ),
             TodosListWidget(
               todos: widget.todos,

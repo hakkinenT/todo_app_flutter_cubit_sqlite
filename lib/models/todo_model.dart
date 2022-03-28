@@ -15,11 +15,11 @@ class TodoModel extends Equatable {
   TodoModel(
       {String? id,
       required this.description,
+      required this.creationDate,
       this.completedDate,
       this.isCompleted = 0})
       : assert(id == null || id.isNotEmpty, 'id deve ser vazio '),
-        id = id ?? const Uuid().v4(),
-        creationDate = DateTime.now();
+        id = id ?? const Uuid().v4();
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>
       _$TodoModelFromJson(json);
@@ -29,15 +29,18 @@ class TodoModel extends Equatable {
   TodoModel copyWith(
       {String? id,
       String? description,
+      DateTime? creationDate,
       DateTime? completedDate,
       int? isCompleted}) {
     return TodoModel(
         id: id ?? this.id,
         description: description ?? this.description,
+        creationDate: creationDate ?? this.creationDate,
         completedDate: completedDate ?? this.completedDate,
         isCompleted: isCompleted ?? this.isCompleted);
   }
 
   @override
-  List<Object?> get props => [id, description, completedDate, isCompleted];
+  List<Object?> get props =>
+      [id, description, creationDate, completedDate, isCompleted];
 }

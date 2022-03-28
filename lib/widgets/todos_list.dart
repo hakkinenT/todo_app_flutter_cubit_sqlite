@@ -12,7 +12,7 @@ class TodosListWidget extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return CheckListTileTodosWidget(
+          return ListTileTodosWidget(
             todo: todos[index],
           );
         },

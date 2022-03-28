@@ -9,6 +9,7 @@ part of 'todo_model.dart';
 TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
       id: json['id'] as String?,
       description: json['description'] as String,
+      creationDate: DateTime.parse(json['creationDate'] as String),
       completedDate: json['completedDate'] == null
           ? null
           : DateTime.parse(json['completedDate'] as String),
@@ -18,6 +19,7 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
 Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
+      'creationDate': instance.creationDate.toIso8601String(),
       'completedDate': instance.completedDate?.toIso8601String(),
       'isCompleted': instance.isCompleted,
     };

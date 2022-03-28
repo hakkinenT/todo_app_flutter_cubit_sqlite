@@ -2,30 +2,14 @@ import 'package:bloc_studies/cubit/todo_cubit.dart';
 import 'package:bloc_studies/models/todo_model.dart';
 import 'package:bloc_studies/theme/app_colors.dart';
 import 'package:bloc_studies/theme/app_text_styles.dart';
-import 'package:bloc_studies/utils/convert_bool.dart';
+import 'package:bloc_studies/widgets/edit_todo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class CheckListTileTodosWidget extends StatefulWidget {
-  final TodoModel? todo;
-  const CheckListTileTodosWidget({Key? key, this.todo}) : super(key: key);
-
-  @override
-  State<CheckListTileTodosWidget> createState() =>
-      _CheckListTileTodosWidgetState();
-}
-
-class _CheckListTileTodosWidgetState extends State<CheckListTileTodosWidget> {
-  late bool _isSelected;
-
-  @override
-  void didChangeDependencies() {
-    final isCompleted = ConvertBool.convertIntToBool(widget.todo!.isCompleted!);
-    _isSelected = isCompleted;
-
-    super.didChangeDependencies();
-  }
+class ListTileTodosWidget extends StatelessWidget {
+  final TodoModel todo;
+  const ListTileTodosWidget({Key? key, required this.todo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +70,7 @@ class _CheckListTileTodosWidgetState extends State<CheckListTileTodosWidget> {
       },
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
-          _deleteTodo(context, widget.todo!);
+          _deleteTodo(context, todo);
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -97,8 +81,8 @@ class _CheckListTileTodosWidgetState extends State<CheckListTileTodosWidget> {
         }
 
         if (direction == DismissDirection.endToStart) {
-          final newTodo = widget.todo!
-              .copyWith(isCompleted: 1, completedDate: DateTime.now());
+          final newTodo =
+              todo.copyWith(isCompleted: 1, completedDate: DateTime.now());
           _changeTodoState(context, newTodo);
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -125,13 +109,30 @@ class _CheckListTileTodosWidgetState extends State<CheckListTileTodosWidget> {
         ),
       ),
       child: ListTile(
+        onTap: () {
+          showModalBottomSheet<void>(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              context: context,
+              isScrollControlled: true,
+              builder: (BuildContext ctx) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: EditTodoWidget(
+                    todo: todo,
+                  ),
+                );
+              });
+        },
         title: Text(
-          widget.todo!.description,
+          todo.description,
           style: AppTextStyle.smallTitleTile,
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: Text(
-          'Criada em: ${DateFormat('dd/MM/yyyy').format(widget.todo!.creationDate)}',
+          'Criada em: ${DateFormat('dd/MM/yyyy').format(todo.creationDate)}',
           style: AppTextStyle.smallSubtitleTile,
           overflow: TextOverflow.ellipsis,
         ),
@@ -145,7 +146,7 @@ class _CheckListTileTodosWidgetState extends State<CheckListTileTodosWidget> {
   }
 
   void _changeTodoState(BuildContext context, TodoModel newTodo) {
-    context.read<TodosCubit>().changeTodoStatus(newTodo);
+    context.read<TodosCubit>().updateTodo(newTodo);
     context.read<TodosCubit>().fetchTodos();
   }
 }

@@ -16,7 +16,7 @@ class TodoRepository implements ITodosRepository {
   }
 
   @override
-  Future<int> changeTodoStatus(TodoModel todo) async {
+  Future<int> updateTodo(TodoModel todo) async {
     try {
       final result = await _api.updateTodo(todo);
       return result;

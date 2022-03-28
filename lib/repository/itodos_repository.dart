@@ -9,7 +9,7 @@ abstract class ITodosRepository {
 
   Future<int> deleteTodo(String id);
 
-  Future<int> changeTodoStatus(TodoModel todo);
+  Future<int> updateTodo(TodoModel todo);
 
   //Future<List<TodoModel>> getCompletedTodos();
 }

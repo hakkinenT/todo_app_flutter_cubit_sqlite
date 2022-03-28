@@ -27,8 +27,8 @@ class TodosCubit extends Cubit<TodosState> {
     emit(TodosLoaded(todos));
   }
 
-  void changeTodoStatus(TodoModel todo) async {
-    await _todosRepository.changeTodoStatus(todo);
+  void updateTodo(TodoModel todo) async {
+    await _todosRepository.updateTodo(todo);
   }
 
   void deleteTodo(TodoModel todo) async {

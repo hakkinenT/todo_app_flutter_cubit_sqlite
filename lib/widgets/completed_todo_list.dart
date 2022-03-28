@@ -1,5 +1,6 @@
 import 'package:bloc_studies/cubit/completed_todo_cubit.dart';
 import 'package:bloc_studies/cubit/completed_todo_state.dart';
+import 'package:bloc_studies/theme/app_colors.dart';
 import 'package:bloc_studies/widgets/completed_todo_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,9 @@ class _CompletedTodoListWidgetState extends State<CompletedTodoListWidget> {
         );
       } else {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: AppColors.accentColorLight,
+          ),
         );
       }
     });

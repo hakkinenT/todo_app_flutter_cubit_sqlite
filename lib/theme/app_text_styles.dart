@@ -18,7 +18,9 @@ class AppTextStyle {
   static final smallSubtitleTile = GoogleFonts.roboto(
       textStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 15));
   static final smallBody = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 14, height: 1.60));
+      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600));
+  static final smallLabel = GoogleFonts.roboto(
+      textStyle: const TextStyle(fontSize: 16, height: 1.60));
   static final smallButtomText = GoogleFonts.roboto(
       textStyle: const TextStyle(
           fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.75));
